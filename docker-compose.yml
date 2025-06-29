@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  dbt-netflix:
+    build: .
+    container_name: dbt-netflix
+    environment:
+      # Snowflake connection variables
+      - SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+      - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+      - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+      - SNOWFLAKE_ROLE=${SNOWFLAKE_ROLE:-ACCOUNTADMIN}
+      - SNOWFLAKE_DATABASE=${SNOWFLAKE_DATABASE:-NETFLIX_DB}
+      - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE:-COMPUTE_WH}
+      - SNOWFLAKE_SCHEMA=${SNOWFLAKE_SCHEMA:-PUBLIC}
+      # dbt configuration
+      - DBT_PROFILES_DIR=/root/.dbt
+    volumes:
+      # Mount project directory for development
+      - ./netflix:/app/netflix
+      # Mount custom profiles if needed
+      - ./profiles.yml:/root/.dbt/profiles.yml:ro
+    working_dir: /app/netflix
+    command: ["dbt", "run"]
+    profiles:
+      - default
+
+  dbt-test:
+    build: .
+    container_name: dbt-netflix-test
+    environment:
+      - SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+      - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+      - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+      - SNOWFLAKE_ROLE=${SNOWFLAKE_ROLE:-ACCOUNTADMIN}
+      - SNOWFLAKE_DATABASE=${SNOWFLAKE_DATABASE:-NETFLIX_DB}
+      - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE:-COMPUTE_WH}
+      - SNOWFLAKE_SCHEMA=${SNOWFLAKE_SCHEMA:-PUBLIC}
+      - DBT_PROFILES_DIR=/root/.dbt
+    volumes:
+      - ./netflix:/app/netflix
+      - ./profiles.yml:/root/.dbt/profiles.yml:ro
+    working_dir: /app/netflix
+    command: ["dbt", "test"]
+    profiles:
+      - default 
