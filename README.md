@@ -1,26 +1,33 @@
-# Netflix dbt Project
+# 📊 Netflix DBT Data Pipeline Project
 
-This repository contains a dbt (data build tool) project for analyzing Netflix data. It is fully containerized with Docker for easy setup, development, and deployment. In this project I upload csv netflix data files to aws s3 and the feach those data to snowflake and the did the data transformation using DBT and build clean and valid dabase solution for the further analysis. 
+> **A modern, cloud-native data pipeline for Netflix analytics, leveraging AWS for scalable storage, Snowflake for powerful warehousing, and dbt for robust data transformation. Effortlessly turn raw CSV data into actionable insights with automated, version-controlled workflows.**
+
+This project demonstrates a complete modern **ELT (Extract, Load, Transform)** pipeline built around cloud-native tools and designed for efficient, scalable data processing and analytics.
 
 ---
 
-## 📊 Data Pipeline Architecture
+## 🔁 Pipeline Overview
 
-![Netflix Data Pipeline Architecture](./pipeline-architecture.jpg)
+![Data Pipeline Flow](./pipeline-architecture.jpg)
 
-**Explanation:**
-- **Extract:** Netflix data is exported as CSV files.
-- **Load:**
-  - The CSV files are uploaded to AWS S3 (cloud storage).
-  - From S3, the data is loaded into Snowflake (cloud data warehouse).
-- **Transform:**
-  - In Snowflake, the data is organized into staging and development schemas.
-  - dbt (data build tool) is used for:
-    1. **Data Transformation:** Cleans, joins, and models the raw data into analytics-ready tables.
-    2. **Testing:** Ensures data quality and correctness.
-    3. **Orchestration:** Manages dependencies and execution order of transformations.
-- **Visualize:**
-  - The transformed data is then available for BI tools like Tableau and Power BI for reporting and analytics.
+### 🔹 1. Extract & Load
+- **Source**: Netflix movie metadata (CSV format)
+- **Storage**: Raw data uploaded to **Amazon S3**
+- **Load**: Data ingested into **Snowflake** via external staging
+
+### 🔹 2. Transform (with dbt)
+- **dbt** manages all transformation logic using:
+  - `Staging` layer for initial cleaning and typing
+  - `Development` layer for modeling business logic
+  - Testing, documentation, and version control
+- All transformation happens **within Snowflake** for performance
+
+### 🔹 3. Visualization & Reporting
+- Transformed data is connected to BI tools:
+  - **Power BI**
+  - **Tableau**
+  - **Looker Studio**
+- These tools are used for building interactive dashboards and business insights
 
 ---
 
@@ -137,5 +144,3 @@ docker-compose up dbt-test
 
 ## 🤝 Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
----
