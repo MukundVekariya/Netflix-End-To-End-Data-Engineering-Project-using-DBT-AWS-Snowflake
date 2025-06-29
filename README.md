@@ -51,6 +51,27 @@ This repository contains a dbt (data build tool) project for analyzing Netflix d
 
 ---
 
+## 📁 dbt Folder Structure Explained
+
+Your `netflix/` directory follows the standard dbt project structure. Here's what each key folder/file is for:
+
+| Folder/File         | Purpose                                                                 |
+|---------------------|-------------------------------------------------------------------------|
+| `models/`           | Main dbt models (SQL transformations). Contains subfolders for dimensions (`dim/`), facts (`fct/`), marts (`mart/`), and staging (`staging/`). |
+| `analyses/`         | Ad-hoc analysis SQL files not part of the main model DAG.               |
+| `macros/`           | Custom Jinja macros (reusable SQL snippets/functions).                  |
+| `seeds/`            | Static CSV data to load as tables (e.g., reference data).               |
+| `snapshots/`        | Snapshot SQL files for tracking changes to records over time.           |
+| `tests/`            | Custom data tests to ensure data quality.                               |
+| `logs/`, `target/`  | dbt output and compiled files (not usually committed to git).           |
+| `dbt_project.yml`   | Main configuration file for your dbt project.                           |
+| `packages.yml`      | Lists dbt packages (like `dbt-utils`) your project depends on.          |
+| `README.md`         | Project documentation.                                                  |
+
+**This structure helps you organize your analytics code, keep transformations modular, and ensure data quality and documentation are built-in.**
+
+---
+
 ## 🏁 Quick Start
 
 ### 1. Clone the repository
