@@ -1,6 +1,6 @@
 # Netflix dbt Project
 
-This repository contains a dbt (data build tool) project for analyzing Netflix data. It is fully containerized with Docker for easy setup, development, and deployment.
+This repository contains a dbt (data build tool) project for analyzing Netflix data. It is fully containerized with Docker for easy setup, development, and deployment. In this project I upload csv netflix data files to aws s3 and the feach those data to snowflake and the did the data transformation using DBT and build clean and valid dabase solution for the further analysis. 
 
 ---
 
